@@ -1,0 +1,252 @@
+@startuml
+enum RootOfModel.Position {
++  MANAGER
++  CHEF
++  BARMAN
++  WAITER
++  WAITRESS
++  RECEPTIONIST
+}
+class Appliances.PeepHoleBulb {
+- Recess recess
+- boolean bulbState
++ void blink()
++ void toggleSwitch()
++ void stickOutRecess()
++ int hashCode()
++ boolean equals(Object)
++ String toString()
+}
+class Appliances.Shelf {
+- boolean occupied
++ boolean isOccupied()
++ void setOccupied(boolean)
++ void occupy()
++ int hashCode()
++ boolean equals(Object)
++ String toString()
+}
+class Model.Room {
+- {static} int objectCount
+- int id
+- List<RoomAppliance> appliances
+- int price
+- int number
+- boolean booked
++ int getNumber()
++ void setNumber(int)
++ boolean isBooked()
++ void setBooked(boolean)
++ int getPrice()
++ void setPrice(int)
++ List<RoomAppliance> getAppliances()
++ void addApplianceInRoom(RoomAppliance)
++ void ringBell()
++ void blinkHole()
++ int getId()
++ int hashCode()
++ boolean equals(Object)
++ String toString()
+}
+class Model.Room$coffeeMaker {
++ void makeCoffee(CoffeeTypes,int)
+}
+class Model.Coffee {
+~ CoffeeTypes type
+}
+interface RootOfModel.Ringeable {
+~ void ring()
+}
+class Model.Activites {
+~ Hotel hotel
+~ void doActivities(Guest,Guest)
+}
+abstract class RootOfModel.RoomAppliance {
+- {static} int objectCount
+- String name
+- String color
++ String getName()
++ void setName(String)
++ String getColor()
++ void setColor(String)
++ int hashCode()
++ boolean equals(Object)
++ String toString()
+}
+enum RootOfModel.Gender {
++  MALE
++  FEMALE
+}
+class Appliances.Telephone {
+- {static} String regexForPhone
++ String validatePhoneNumber(String)
++ void ring()
++ int hashCode()
++ boolean equals(Object)
++ String toString()
++ void call(String)
+}
+class Appliances.PhoneNumber {
+~ String formattedPhoneNumber
++ String getNumber()
+}
+class Appliances.Recess {
+- boolean stuckOut
++ boolean isStuckOut()
++ void setStuckOut(boolean)
++ int hashCode()
++ boolean equals(Object)
++ String toString()
+}
+abstract class People.Person {
+- {static} int objectCount
+- String name
+- Gender gender
+- int age
+- int id
+- String phoneNumber
++ String getName()
++ int getAge()
++ Gender getGender()
++ void call(Person)
++ int hashCode()
++ boolean equals(Object)
++ String toString()
++ String getPhoneNumber()
++ void setPhoneNumber(String)
+}
+class Model.Exceptions.illogicalActionException {
+}
+class Appliances.Wardrobe {
+- boolean occupied
+- int length
+- int height
+- int width
++ void occupy()
++ boolean isOccupied()
++ void setOccupied(boolean)
++ int getLength()
++ void setLength(int)
++ int getHeight()
++ void setHeight(int)
++ int getWidth()
++ void setWidth(int)
++ int hashCode()
++ boolean equals(Object)
++ String toString()
+}
+class People.Guest {
+- boolean hasBookedRoom
+- Room room
+~ boolean hasMadeCoffee
++ void layOnBed()
++ void openCloset()
++ boolean isHasBookedRoom()
++ Room getRoom()
++ void setRoom(Room)
++ void getSettled()
++ int hashCode()
++ boolean equals(Object)
++ String toString()
++ void makeCoffee(CoffeeTypes,int)
++ void drinkCoffee()
++ void sitOnChair()
+}
+class People.Worker {
+- Position position
+- int id
+- int salary
++ Position getPosition()
++ void setPosition(Position)
++ int getSalary()
++ void setSalary(int)
++ int getId()
++ int hashCode()
++ boolean equals(Object)
++ String toString()
++ String getName()
+}
+enum RootOfModel.CoffeeTypes {
++  CAPPUCCINO
++  AMERICANO
++  LATTE
++  EXPRESSO
+}
+class Appliances.Closet {
+- boolean open
++ boolean isOpen()
++ void setOpen(boolean)
++ void openClose()
++ int hashCode()
++ boolean equals(Object)
++ String toString()
+}
+class Model.Main {
++ {static} void main(String[])
+}
+interface RootOfModel.Blinkeable {
+~ void blink()
+}
+class Model.Exceptions.noObjectException {
+}
+class People.Receptionist {
++ void welcomeGuest(Guest,Hotel)
++ void callGuest(Guest,Telephone)
++ void giveGuestKey(Guest)
++ int hashCode()
++ boolean equals(Object)
++ String toString()
++ void bookRoom(int,Hotel,Guest)
+}
+interface RootOfModel.Occupyable {
+~ void occupy()
+}
+interface RootOfModel.Onable {
+~ void toggleSwitch()
+}
+class Appliances.TV {
+~ boolean isOn
++ void toggleSwitch()
++ int hashCode()
++ boolean equals(Object)
++ String toString()
+}
+class Model.Hotel {
+- String name
+- List<Room> rooms
+- List<Worker> workers
+- Receptionist receptionist
++ List<Room> getRooms()
++ void fillSomeRooms(int)
++ List<Worker> getWorkers()
++ Receptionist getReceptionist()
++ String getName()
++ void setRoomsPrice(int)
++ void addAppliance(RoomAppliance)
++ void fillAppliances(RoomAppliance)
++ int hashCode()
++ boolean equals(Object)
++ String toString()
+}
+
+
+RootOfModel.Onable <|.. Appliances.PeepHoleBulb
+RootOfModel.Blinkeable <|.. Appliances.PeepHoleBulb
+RootOfModel.RoomAppliance <|-- Appliances.PeepHoleBulb
+RootOfModel.Occupyable <|.. Appliances.Shelf
+RootOfModel.RoomAppliance <|-- Appliances.Shelf
+Model.Room +.. Model.Room$coffeeMaker
+Model.RoomAppliance <|-- Model.Room$coffeeMaker
+RootOfModel.Ringeable <|.. Appliances.Telephone
+RootOfModel.RoomAppliance <|-- Appliances.Telephone
+Model.Exceptions.Exception <|-- Model.Exceptions.illogicalActionException
+RootOfModel.Occupyable <|.. Appliances.Wardrobe
+RootOfModel.RoomAppliance <|-- Appliances.Wardrobe
+People.Person <|-- People.Guest
+People.Person <|-- People.Worker
+RootOfModel.RoomAppliance <|-- Appliances.Closet
+Model.Exceptions.RuntimeException <|-- Model.Exceptions.noObjectException
+People.Worker <|-- People.Receptionist
+RootOfModel.Onable <|.. Appliances.TV
+RootOfModel.RoomAppliance <|-- Appliances.TV
+@enduml
