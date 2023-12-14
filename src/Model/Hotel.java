@@ -1,8 +1,8 @@
 package Model;
 
+import Appliances.RoomAppliance;
 import People.Receptionist;
 import People.Worker;
-import RootOfModel.RoomAppliance;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,8 +1,10 @@
 package Appliances;
 
+import Model.Exceptions.RecessAlreadyOutException;
 import RootOfModel.Blinkeable;
 import RootOfModel.Onable;
-import RootOfModel.RoomAppliance;
+
+import java.util.Objects;
 
 public class PeepHoleBulb extends RoomAppliance implements Onable, Blinkeable {
     private final Recess recess;
@@ -29,24 +31,36 @@ public class PeepHoleBulb extends RoomAppliance implements Onable, Blinkeable {
     }
 
 
-    public void stickOutRecess() throws InterruptedException {
-        blink();
-        this.recess.setStuckOut(true);
-        System.out.println("Recess Sticks out of Peephole");
+    public void stickOutRecess() throws InterruptedException, RecessAlreadyOutException {
+        if (!recess.isStuckOut()) {
+            blink();
+            this.recess.setStuckOut(true);
+            System.out.println("Recess Sticks out of Peephole");
+        } else {
+            throw new RecessAlreadyOutException("The recess is already out");
+        }
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return Objects.hash(super.hashCode(), getRecess(), bulbState);
     }
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        if (this == obj) return true;
+        if (this == null || this.getClass() != obj.getClass()) return false;
+        if (!super.equals(obj)) return false;
+        PeepHoleBulb peep = (PeepHoleBulb) obj;
+        return Objects.equals(getRecess(), peep.getRecess()) && bulbState == peep.bulbState;
     }
 
     @Override
     public String toString() {
-        return super.toString();
+        return getRecess().toString() + " " + bulbState;
+    }
+
+    public Recess getRecess() {
+        return recess;
     }
 }

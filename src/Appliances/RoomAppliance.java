@@ -1,4 +1,4 @@
-package RootOfModel;
+package Appliances;
 
 import java.util.Objects;
 
@@ -48,4 +48,6 @@ public abstract class RoomAppliance {
     public String toString() {
         return getClass().getSimpleName() + " " + getName();
     }
+
+
 }

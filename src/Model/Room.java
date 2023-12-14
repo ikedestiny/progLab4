@@ -1,9 +1,9 @@
 package Model;
 
 import Appliances.PeepHoleBulb;
-import RootOfModel.CoffeeTypes;
+import Appliances.RoomAppliance;
+import Model.Exceptions.RecessAlreadyOutException;
 import RootOfModel.Ringeable;
-import RootOfModel.RoomAppliance;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +66,7 @@ public class Room {
         };
     }
 
-    public void blinkHole() throws InterruptedException {
+    public void blinkHole() throws InterruptedException, RecessAlreadyOutException {
         for (RoomAppliance appliance : this.getAppliances()) {
             if (appliance.getClass().getSimpleName().equalsIgnoreCase("PeepHoleBulb")) {
                 PeepHoleBulb hole = (PeepHoleBulb) appliance;
@@ -98,24 +98,5 @@ public class Room {
         return "Room " + getNumber();
     }
 
-    //this is a static nested  class in room class
-    public static class coffeeMaker extends RoomAppliance {
-        public coffeeMaker() {
-
-        }
-
-        public void makeCoffee(CoffeeTypes type, int volume) {
-            //This is a local class inside an inner class
-            class Coffee {
-                final CoffeeTypes type;
-
-                public Coffee(CoffeeTypes type) {
-                    this.type = type;
-                }
-            }
-            Coffee coffee = new Coffee(type);
-            System.out.println("Here is your " + volume + "ml " + coffee.type);
-        }
-    }
 
 }

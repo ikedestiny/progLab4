@@ -1,7 +1,10 @@
 package People;
 
 import Appliances.Closet;
+import Appliances.CoffeeMaker;
+import Appliances.RoomAppliance;
 import Appliances.Shelf;
+import Model.Exceptions.NoCoffeeMaker;
 import Model.Exceptions.illogicalActionException;
 import Model.Exceptions.noObjectException;
 import Model.Room;
@@ -98,10 +101,18 @@ public class Guest extends Person {
     }
 
     public void makeCoffee(CoffeeTypes type, int volume) {
-        Room.coffeeMaker coffeeMaker = new Room.coffeeMaker();
-        coffeeMaker.makeCoffee(type, volume);
-
-        hasMadeCoffee = true;
+        boolean makerInRoom = false;
+        for (RoomAppliance app : this.getRoom().getAppliances()) {
+            if (app instanceof CoffeeMaker coffeeMaker) {
+                makerInRoom = true;
+                coffeeMaker.makeCoffee(type, volume);
+                hasMadeCoffee = true;
+            }
+        }
+        if (!makerInRoom) {
+            System.out.println();
+            throw new NoCoffeeMaker("There is no coffee maker in  this room");
+        }
     }
 
 

@@ -1,7 +1,6 @@
 package Appliances;
 
 import RootOfModel.Occupyable;
-import RootOfModel.RoomAppliance;
 
 import java.util.Objects;
 

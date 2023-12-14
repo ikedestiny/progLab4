@@ -1,11 +1,13 @@
 package Model;
 
+import Model.Exceptions.RecessAlreadyOutException;
+import Model.Exceptions.RemoteControlException;
 import People.Guest;
 import People.Receptionist;
 import RootOfModel.Gender;
 
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, RecessAlreadyOutException, RemoteControlException {
 
         Hotel hotel = new Hotel("ЭКОНОМИЧЕСКАЯ", new Receptionist("Vivian", 25, Gender.FEMALE));
         Guest guests = new Guest("Dunno", 25, Gender.MALE);

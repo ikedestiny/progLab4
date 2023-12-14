@@ -1,6 +1,7 @@
 package Model;
 
 import Appliances.*;
+import Model.Exceptions.RecessAlreadyOutException;
 import Model.Exceptions.illogicalActionException;
 import People.Guest;
 import People.Receptionist;
@@ -13,14 +14,16 @@ public class Activites {
         this.hotel = hotel;
     }
 
-    void doActivities(Guest guest1, Guest guest2) throws InterruptedException {
+    void doActivities(Guest guest1, Guest guest2) throws InterruptedException, RecessAlreadyOutException {
         hotel.setRoomsPrice(50);
         hotel.fillSomeRooms(100);
         hotel.fillAppliances(new PeepHoleBulb(),
-                new Wardrobe(), new TV(), new Telephone(), new Closet(), new Shelf());
+                new Wardrobe(), new TV(), new Telephone(), new Closet(), new Shelf(), new CoffeeMaker());
 
 
         Receptionist receptionist = hotel.getReceptionist();
+        receptionist.setPhoneNumber("jhdhuu6732676732");
+
 
         receptionist.welcomeGuest(guest2, hotel);
         receptionist.bookRoom(100, hotel, guest1, guest2);
