@@ -9,6 +9,9 @@ public class Closet extends RoomAppliance {
 
     public Closet() {
 
+        height = 100;
+        length = 20;
+
     }
 
     public boolean isOpen() {
@@ -24,20 +27,7 @@ public class Closet extends RoomAppliance {
         System.out.println("Opens Closet");
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), isOpen(), getHeight(), getLength());
-    }
 
-    @Override
-    public boolean equals(Object obj) {
-
-        if (this == obj) return true;
-        if (this == null || this.getClass() != obj.getClass()) return false;
-        if (!super.equals(obj)) return false;
-        Closet closet = (Closet) obj;
-        return Objects.equals(isOpen(), closet.isOpen()) && getHeight() == ((Closet) obj).getHeight() && getLength() == ((Closet) obj).getLength();
-    }
 
     @Override
     public String toString() {
@@ -58,6 +48,21 @@ public class Closet extends RoomAppliance {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Closet closet = (Closet) o;
+        return isOpen() == closet.isOpen() && getLength() == closet.getLength() && getHeight() == closet.getHeight();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), isOpen(), getLength(), getHeight());
     }
 }
 

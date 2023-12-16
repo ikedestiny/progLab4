@@ -2,7 +2,8 @@ package Model;
 
 import Appliances.PeepHoleBulb;
 import Appliances.RoomAppliance;
-import Model.Exceptions.RecessAlreadyOutException;
+import Exceptions.RecessAlreadyOutException;
+import RootOfModel.Occupyable;
 import RootOfModel.Ringeable;
 
 import java.util.ArrayList;
@@ -16,12 +17,15 @@ public class Room {
     private int price;
     private int number;
     private boolean booked;
+    Bed bed;
+
 
     public Room(int number) {
         this.number = number;
         this.appliances = new ArrayList<>();
         objectCount++;
         this.id = objectCount;
+        bed = new Bed("Room Bed", "RED");
     }
 
     public int getNumber() {
@@ -63,7 +67,15 @@ public class Room {
                 Thread.sleep(500);
                 System.out.println("Bell ringing Grin Grin Grin");
             }
+
+
         };
+    }
+
+    //non-static inner class
+
+    public Bed getBed() {
+        return bed;
     }
 
     public void blinkHole() throws InterruptedException, RecessAlreadyOutException {
@@ -98,5 +110,21 @@ public class Room {
         return "Room " + getNumber();
     }
 
+    public void setBed(Bed bed) {
+        this.bed = bed;
+    }
 
+    private class Bed extends RoomAppliance implements Occupyable {
+
+        private boolean occupied;
+
+        public Bed(String name, String color) {
+            super(name, color);
+        }
+
+        @Override
+        public void occupy() {
+            occupied = true;
+        }
+    }
 }

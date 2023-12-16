@@ -1,4 +1,4 @@
-package Model.Exceptions;
+package Exceptions;
 
 //checked exception
 public class RecessAlreadyOutException extends Exception {

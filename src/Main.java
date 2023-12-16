@@ -1,20 +1,23 @@
-package Model;
-
 import Appliances.*;
-import Model.Exceptions.RecessAlreadyOutException;
-import Model.Exceptions.illogicalActionException;
+import Exceptions.IllogicalActionException;
+import Exceptions.RecessAlreadyOutException;
+import Exceptions.RemoteControlException;
+import Model.Hotel;
 import People.Guest;
 import People.Receptionist;
 import RootOfModel.CoffeeTypes;
+import RootOfModel.Gender;
 
-public class Activites {
-    Hotel hotel;
+import java.lang.reflect.InvocationTargetException;
 
-    public Activites(Hotel hotel) {
-        this.hotel = hotel;
-    }
+public class Main {
+    public static void main(String[] args) throws InterruptedException, RecessAlreadyOutException, RemoteControlException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 
-    void doActivities(Guest guest1, Guest guest2) throws InterruptedException, RecessAlreadyOutException {
+        Hotel hotel = new Hotel("ЭКОНОМИЧЕСКАЯ", new Receptionist("Vivian", 25, Gender.FEMALE));
+        Guest guest1 = new Guest("Dunno", 25, Gender.MALE);
+        Guest guest2 = new Guest("Kozlik", 25, Gender.MALE);
+
+
         hotel.setRoomsPrice(50);
         hotel.fillSomeRooms(100);
         hotel.fillAppliances(new PeepHoleBulb(),
@@ -22,7 +25,7 @@ public class Activites {
 
 
         Receptionist receptionist = hotel.getReceptionist();
-        receptionist.setPhoneNumber("jhdhuu6732676732");
+        receptionist.setPhoneNumber("jhdhuu67326bbbj76kkk732");
 
 
         receptionist.welcomeGuest(guest2, hotel);
@@ -43,9 +46,10 @@ public class Activites {
         guest1.sitOnChair();
         try {
             guest1.drinkCoffee();
-        } catch (illogicalActionException e) {
+        } catch (IllogicalActionException e) {
             System.out.println("You need to make the coffee first");
         }
+
 
     }
 }

@@ -1,4 +1,4 @@
-package Model.Exceptions;
+package Exceptions;
 
 //Unchecked exception
 public class NoCoffeeMaker extends RuntimeException {

@@ -20,16 +20,22 @@ public class CoffeeMaker extends RoomAppliance {
     }
 
     public void makeCoffee(CoffeeTypes type, int volume) {
-        //This is a local class inside an inner class
-        class Coffee {
-            final CoffeeTypes type;
-
-            public Coffee(CoffeeTypes type) {
-                this.type = type;
-            }
-        }
         Coffee coffee = new Coffee(type);
         System.out.println("Here is your " + volume + "ml " + coffee.type);
+    }
+
+
+    //Static nested class
+    static class Coffee {
+        final CoffeeTypes type;
+
+        public Coffee(CoffeeTypes type) {
+            this.type = type;
+        }
+
+        public CoffeeTypes getType() {
+            return type;
+        }
     }
 
     public String getBrand() {

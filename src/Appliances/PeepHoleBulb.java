@@ -1,6 +1,6 @@
 package Appliances;
 
-import Model.Exceptions.RecessAlreadyOutException;
+import Exceptions.RecessAlreadyOutException;
 import RootOfModel.Blinkeable;
 import RootOfModel.Onable;
 

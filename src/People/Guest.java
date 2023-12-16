@@ -4,9 +4,9 @@ import Appliances.Closet;
 import Appliances.CoffeeMaker;
 import Appliances.RoomAppliance;
 import Appliances.Shelf;
-import Model.Exceptions.NoCoffeeMaker;
-import Model.Exceptions.illogicalActionException;
-import Model.Exceptions.noObjectException;
+import Exceptions.IllogicalActionException;
+import Exceptions.NoCoffeeMaker;
+import Exceptions.NoObjectException;
 import Model.Room;
 import RootOfModel.CoffeeTypes;
 import RootOfModel.Gender;
@@ -36,18 +36,7 @@ public class Guest extends Person {
     }
 
 
-    public void openCloset() {
-        Closet closet = null;
-        for (int i = 0; i < this.getRoom().getAppliances().size(); i++) {
-            if (getRoom().getAppliances().get(i) instanceof Closet) {
-                closet = (Closet) getRoom().getAppliances().get(i);
-                closet.openClose();
-            }
-        }
-        if (closet == null) {
-            throw new noObjectException("There is no closet in the room");
-        }
-    }
+
 
     public boolean isHasBookedRoom() {
         return hasBookedRoom;
@@ -63,10 +52,7 @@ public class Guest extends Person {
     }
 
     public void getSettled() throws InterruptedException {
-
         Shelf shelf = null;
-
-
         for (int i = 0; i < this.getRoom().getAppliances().size(); i++) {
             if (getRoom().getAppliances().get(i) instanceof Shelf) {
                 shelf = (Shelf) getRoom().getAppliances().get(i);
@@ -76,7 +62,7 @@ public class Guest extends Person {
             }
         }
         if (shelf == null) {
-            throw new noObjectException("There is no shelf in the room");
+            throw new NoObjectException("There is no shelf in the room");
         }
 
     }
@@ -116,19 +102,40 @@ public class Guest extends Person {
     }
 
 
-    public void drinkCoffee() throws illogicalActionException {
+    public void drinkCoffee() throws IllogicalActionException {
         if (this.hasMadeCoffee) {
             System.out.println("Drinking the coffee");
         } else {
-            throw new illogicalActionException("Cannot drink coffee that hasnt been made");
+            throw new IllogicalActionException("Cannot drink coffee that hasnt been made");
         }
     }
 
 
     public void sitOnChair() {
-        //anonymous class changed to lambda
-        Occupyable chair = () -> System.out.println(getName() + " sits on chair");
+        //anonymous class
+        Occupyable chair = new Occupyable() {
+            @Override
+            public void occupy() {
+                System.out.println(getName() + " sits on chair");
+            }
+        };
+
         chair.occupy();
+    }
+
+    public void openCloset() {
+        boolean closetInRoom = false;
+        for (int i = 0; i < this.getRoom().getAppliances().size(); i++) {
+            if (getRoom().getAppliances().get(i) instanceof Closet) {
+                closetInRoom = true;
+                Closet closet = new Closet();
+                closet.openClose();
+            }
+        }
+        if (!closetInRoom) {
+            System.out.println("Closet not in room");
+        }
+
     }
 
 

@@ -1,6 +1,6 @@
 package Appliances;
 
-import Model.Exceptions.RemoteControlException;
+import Exceptions.RemoteControlException;
 import RootOfModel.Onable;
 
 import java.util.Objects;
