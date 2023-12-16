@@ -7,11 +7,10 @@ import People.Guest;
 import People.Receptionist;
 import RootOfModel.CoffeeTypes;
 import RootOfModel.Gender;
-
-import java.lang.reflect.InvocationTargetException;
+import RootOfModel.Occupyable;
 
 public class Main {
-    public static void main(String[] args) throws InterruptedException, RecessAlreadyOutException, RemoteControlException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public static void main(String[] args) throws InterruptedException, RecessAlreadyOutException, RemoteControlException, IllegalAccessException {
 
         Hotel hotel = new Hotel("ЭКОНОМИЧЕСКАЯ", new Receptionist("Vivian", 25, Gender.FEMALE));
         Guest guest1 = new Guest("Dunno", 25, Gender.MALE);
@@ -43,7 +42,16 @@ public class Main {
         guest2.call(hotel.getReceptionist());
 
         guest1.makeCoffee(CoffeeTypes.AMERICANO, 500);
-        guest1.sitOnChair();
+
+        //Anonymous class
+        Occupyable chair = new Occupyable() {
+            @Override
+            public void occupy() {
+                System.out.println(" sits on chair");
+            }
+        };
+
+        guest1.sitOnChair(chair);
         try {
             guest1.drinkCoffee();
         } catch (IllogicalActionException e) {

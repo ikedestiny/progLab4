@@ -2,7 +2,6 @@ package People;
 
 import Appliances.Closet;
 import Appliances.CoffeeMaker;
-import Appliances.RoomAppliance;
 import Appliances.Shelf;
 import Exceptions.IllogicalActionException;
 import Exceptions.NoCoffeeMaker;
@@ -52,17 +51,22 @@ public class Guest extends Person {
     }
 
     public void getSettled() throws InterruptedException {
-        Shelf shelf = null;
-        for (int i = 0; i < this.getRoom().getAppliances().size(); i++) {
-            if (getRoom().getAppliances().get(i) instanceof Shelf) {
-                shelf = (Shelf) getRoom().getAppliances().get(i);
-                Thread.sleep(200);
-                System.out.println("Removes hat and places it in shelf");
-                shelf.occupy();
-            }
-        }
+//        Shelf shelf = null;
+//        for (int i = 0; i < this.getRoom().getAppliances().size(); i++) {
+//            if (getRoom().getAppliances().get(i) instanceof Shelf) {
+//                shelf = (Shelf) getRoom().getAppliances().get(i);
+//                Thread.sleep(200);
+//                System.out.println("Removes hat and places it in shelf");
+//                shelf.occupy();
+//            }
+//        }
+
+        Shelf shelf = (Shelf) this.getRoom().getThisAppliance("Shelf");
         if (shelf == null) {
             throw new NoObjectException("There is no shelf in the room");
+        } else {
+            Thread.sleep(200);
+            System.out.println("Removes hat and places it in shelf");
         }
 
     }
@@ -88,16 +92,26 @@ public class Guest extends Person {
 
     public void makeCoffee(CoffeeTypes type, int volume) {
         boolean makerInRoom = false;
-        for (RoomAppliance app : this.getRoom().getAppliances()) {
-            if (app instanceof CoffeeMaker coffeeMaker) {
-                makerInRoom = true;
-                coffeeMaker.makeCoffee(type, volume);
-                hasMadeCoffee = true;
-            }
-        }
-        if (!makerInRoom) {
-            System.out.println();
-            throw new NoCoffeeMaker("There is no coffee maker in  this room");
+//        for (RoomAppliance app : this.getRoom().getAppliances()) {
+//            if (app instanceof CoffeeMaker coffeeMaker) {
+//                makerInRoom = true;
+//                coffeeMaker.makeCoffee(type, volume);
+//                hasMadeCoffee = true;
+//            }
+//        }
+//        if (!makerInRoom) {
+//            System.out.println();
+//            throw new NoCoffeeMaker("There is no coffee maker in  this room");
+//        }
+
+
+        CoffeeMaker coffeeMaker = (CoffeeMaker) this.getRoom().getThisAppliance("CoffeeMaker");
+        if (!(coffeeMaker == null)) {
+            makerInRoom = true;
+            coffeeMaker.makeCoffee(type, volume);
+            hasMadeCoffee = true;
+        } else {
+            throw new NoCoffeeMaker("There is no coffee Maker in this room");
         }
     }
 
@@ -111,29 +125,29 @@ public class Guest extends Person {
     }
 
 
-    public void sitOnChair() {
-        //anonymous class
-        Occupyable chair = new Occupyable() {
-            @Override
-            public void occupy() {
-                System.out.println(getName() + " sits on chair");
-            }
-        };
-
+    public void sitOnChair(Occupyable chair) {
         chair.occupy();
     }
 
     public void openCloset() {
         boolean closetInRoom = false;
-        for (int i = 0; i < this.getRoom().getAppliances().size(); i++) {
-            if (getRoom().getAppliances().get(i) instanceof Closet) {
-                closetInRoom = true;
-                Closet closet = new Closet();
-                closet.openClose();
-            }
-        }
-        if (!closetInRoom) {
-            System.out.println("Closet not in room");
+//        for (int i = 0; i < this.getRoom().getAppliances().size(); i++) {
+//            if (getRoom().getAppliances().get(i) instanceof Closet) {
+//                closetInRoom = true;
+//                Closet closet = new Closet();
+//                closet.openClose();
+//            }
+//        }
+//        if (!closetInRoom) {
+//            System.out.println("Closet not in room");
+//        }
+
+        Closet closet = (Closet) this.getRoom().getThisAppliance("Closet");
+        if (closet != null) {
+            closetInRoom = true;
+            closet.openClose();
+        } else {
+            throw new NoObjectException("There is no Closet in this room");
         }
 
     }

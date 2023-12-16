@@ -127,4 +127,15 @@ public class Room {
             occupied = true;
         }
     }
+
+
+    public RoomAppliance getThisAppliance(String applianceName) {
+        RoomAppliance theAppLiance = null;
+        for (RoomAppliance app : this.getAppliances()) {
+            if (app.getClass().getSimpleName().equalsIgnoreCase(applianceName)) {
+                theAppLiance = app;
+            }
+        }
+        return theAppLiance;
+    }
 }
